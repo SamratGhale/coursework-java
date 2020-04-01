@@ -31,9 +31,8 @@ class INGNepal implements ActionListener {
     JComboBox<Integer> comboWorkingHourPartTime, comboVacancyNumberPartTime, terminatingVacncy,
             comboVacancyNumberFullTime, comboWorkingHourFullTime;
     JComboBox<String> comboShift;
-    DefaultTableModel model, model2, model3, model4;
-    // JScrollPane scrollPane, scrollPane2,scrollPane3,scrollPane4;
-    JTable table, table2, table3, table4;
+    DefaultTableModel  model2,  model4;
+    JTable  table2,  table4;
 
     INGNepal() {
 
@@ -71,8 +70,6 @@ class INGNepal implements ActionListener {
         btnDisplayPartTime = new JButton("Display part time staff information");
         btnDisplayFullTime = new JButton("Display full time staff information");
         btnTerminateFunction = new JButton("Terminate a staff");
-        // displayPartTimeVB = new JButton("Display part time vacancy");
-        // displayFullTimeVB = new JButton("Display full time staff vacancy");
         btnHirePartTimeStaff = new JButton("Hire a part time staff");
         btnHireFullTimeStaff = new JButton("Hire a full time staff");
 
@@ -83,8 +80,6 @@ class INGNepal implements ActionListener {
         btnDisplayPartTime.setBounds(50, 160, 600, 40);
         btnDisplayFullTime.setBounds(50, 220, 600, 40);
         btnTerminateFunction.setBounds(50, 280, 300, 40);
-        // displayPartTimeVB.setBounds(360, 160, 290, 40);
-        // displayFullTimeVB.setBounds(360, 220, 290, 40);
         btnHireFullTimeStaff.setBounds(360, 100, 290, 40);
         btnHirePartTimeStaff.setBounds(360, 40, 290, 40);
         exit.setBounds(360, 280, 290, 40);
@@ -94,8 +89,7 @@ class INGNepal implements ActionListener {
         btnDisplayFullTime.addActionListener(this);
         btnDisplayPartTime.addActionListener(this);
         btnTerminateFunction.addActionListener(this);
-        // displayPartTimeVB.addActionListener(this);
-        // displayFullTimeVB.addActionListener(this);
+
         btnHireFullTimeStaff.addActionListener(this);
         btnHirePartTimeStaff.addActionListener(this);
         exit.addActionListener(this);
@@ -106,8 +100,6 @@ class INGNepal implements ActionListener {
         frame1.add(btnDisplayPartTime);
         frame1.add(btnDisplayFullTime);
         frame1.add(btnTerminateFunction);
-        // frame1.add(displayPartTimeVB);
-        // frame1.add(displayFullTimeVB);
         frame1.add(exit);
         frame1.add(btnHireFullTimeStaff);
         frame1.add(btnHirePartTimeStaff);
@@ -295,7 +287,6 @@ class INGNepal implements ActionListener {
         frame7 = new JFrame("Create vacancy for full time staff");
         frame7.setBounds(120, 60, 500, 450);
         frame7.setLayout(null);
-        // frame7.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         vacancyNoFTF = new JTextField();
         lblVacancyFulTimeStaff = new JLabel("Vacancy Number");
@@ -354,7 +345,6 @@ class INGNepal implements ActionListener {
         frame7.add(designationFTF);
         frame7.add(jobTypeFTF);
         frame7.add(salaryFTF);
-        // frame7.setVisible(true);
         frame7.add(title3);
         frame7.add(backB3);
         frame7.add(clear3);
@@ -529,10 +519,7 @@ class INGNepal implements ActionListener {
 
                 JOptionPane.showMessageDialog(null, "No staff to terminate");
             } else {
-              //  PartTimeStaffHire staff = (PartTimeStaffHire) staffList
-             //           .get(Integer.parseInt(terminatingVacncy.getSelectedItem().toString()) - 1);
                 lblStaffNameToTerminateTF.setEditable(false);
-              //  lblStaffNameToTerminateTF.setText(staffList.get(1).);
                 frame6.setVisible(true);
             }
         } else if (e.getSource() == showNameB) {
