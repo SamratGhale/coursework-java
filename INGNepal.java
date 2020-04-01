@@ -10,23 +10,27 @@ import java.awt.Color;
 class INGNepal implements ActionListener {
 
     // initilizing the instances
-    ArrayList<FullTImeStaffHire> FSH = new ArrayList<FullTImeStaffHire>();
-    ArrayList<PartTimeStaffHire> PSH = new ArrayList<PartTimeStaffHire>();
-    JFrame frame1, frame2, frame3, frame4, frame5, frame6, frame7, frame8, frame9,frame10;
-    JButton addVacFullTimeB, addVacPartTimeB, hirePartTimeStaffB, hireFullTimeStaffB, displayPartB, backB, backB2,
-            backB3, backB4, displayFullB, terminateAPartTimeStaff, terminateB, terminatePTS, savePT, savePTH, saveFT,
-            saveFTH, clear1, clear2, clear3, clear4, displayPartTimeVB, displayFullTimeVB, exit, showNameB;
+    ArrayList<StaffHire> staffList = new ArrayList<StaffHire>();
+    JFrame frame1, frame2, frame3, frame4, frame5, frame6, frame7, frame8, frame9, frame10;
+    JButton btnAddFullTimeVacancy, btnAddPartTimeVacancy, btnHirePartTimeStaff, btnHireFullTimeStaff,
+            btnDisplayPartTime, backB, backB2, backB3, backB4, btnDisplayFullTime, btnTerminateFunction, btnTerminate,
+            btnSavePartTimeVacancy, btnSavePartTimeStaff, btnSaveFullTimeVacancy, btnSaveFullTimeStaff, clear1, clear2,
+            clear3, clear4, /** displayPartTimeVB, displayFullTimeVB, */
+            exit, showNameB;
     JTextField wagesPerHourTF, DesignationTF, VacancyNumPT, jobTypeTF/** for hiting part time staff */
-            , joinedDatePTF, staffNamePTF, qualificationPTF, appointedByPTF, staffNameTerminateTF, vacancyNoFTF,
+            , joinedDatePTF, staffNamePTF, qualificationPTF, appointedByPTF, lblStaffNameToTerminateTF, vacancyNoFTF,
             designationFTF, jobTypeFTF, salaryFTF, staffNameFTF, joiningDateFTF, qualificationFTF, appointedByFTF;
     // JFormattedTextField joinedDateTF;
-    JLabel workingHourL, shiftL, wagesPerHourL, DesignationL, VacancyNumL, jobTypeL, /** for part time staff hire */
-            staffNamePTL, joiningDatePTL, qualifactionPTL, appointeedByPTL, vacancyNoPTL, terminatingStaffL,
-            vacancyNoTerminateL, staffNameTerminate, vacancyNumberTerminate, vacancyNoFTL, workingHourFTL,
-            designationFTL, jobTypeFTL, salaryFTL, staffNameFTL, joiningDateFTL, qualificationFTL, appointedByFTL,vacancyNoFTH;
-    JComboBox<Integer> vacancyNoC;
-    JComboBox<Integer> workingHourC, vacancyNoPTC, terminatingVacncy, vacancyNoFTC, workingHourFTC;
-    JComboBox<String> shiftCB;
+    JLabel lblworkingHourPartTime, lblShift, lblWagesPerHour, lblDesignationPartTime, lblVacanyNoPartTime,
+            lblJobTypePartTime, /** for part time staff hire */
+            lblStaffNamePartTime, lblJoiningDatePartTime, lblQualificationPartTimeStaff, lblAppointedByPartTime,
+            lblVacancyNumberPartTime, lblVavancyNoTerminate, lblStaffNameToTerminate, lblVacancyNumberToTerminate,
+            lblVacancyFulTimeStaff, lblworkingHourFullTime, lblDesignationFullTime, lbljobTypeFullTime,
+            lblSalaryFullTimeStaff, lblStaffNameFullTimeStaff, lblJoiningDateFullTimeStaff,
+            lblQualificationFullTimeStaff, lblAppointedByFullTimeStaff, lblVacancyNoFullTimeStaff2;
+    JComboBox<Integer> comboWorkingHourPartTime, comboVacancyNumberPartTime, terminatingVacncy,
+            comboVacancyNumberFullTime, comboWorkingHourFullTime;
+    JComboBox<String> comboShift;
     DefaultTableModel model, model2, model3, model4;
     // JScrollPane scrollPane, scrollPane2,scrollPane3,scrollPane4;
     JTable table, table2, table3, table4;
@@ -62,74 +66,74 @@ class INGNepal implements ActionListener {
         frame1.setLayout(null);
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // buttons
-        addVacFullTimeB = new JButton("Add vacancy for full time staff");
-        addVacPartTimeB = new JButton("Add vacancy for part time staff");
-        displayPartB = new JButton("Display part time staff information");
-        displayFullB = new JButton("Display full time staff information");
-        terminateB = new JButton("Terminate a staff");
-        displayPartTimeVB = new JButton("Display part time vacancy");
-        displayFullTimeVB = new JButton("Display full time staff vacancy");
-        hirePartTimeStaffB = new JButton("Hire a part time staff");
-        hireFullTimeStaffB = new JButton("Hire a full time staff");
+        btnAddFullTimeVacancy = new JButton("Add vacancy for full time staff");
+        btnAddPartTimeVacancy = new JButton("Add vacancy for part time staff");
+        btnDisplayPartTime = new JButton("Display part time staff information");
+        btnDisplayFullTime = new JButton("Display full time staff information");
+        btnTerminateFunction = new JButton("Terminate a staff");
+        // displayPartTimeVB = new JButton("Display part time vacancy");
+        // displayFullTimeVB = new JButton("Display full time staff vacancy");
+        btnHirePartTimeStaff = new JButton("Hire a part time staff");
+        btnHireFullTimeStaff = new JButton("Hire a full time staff");
 
         exit = new JButton("EXIT");
         // setting bounds
-        addVacPartTimeB.setBounds(50, 40, 300, 40);
-        addVacFullTimeB.setBounds(50, 100, 300, 40);
-        displayPartB.setBounds(50, 160, 300, 40);
-        displayFullB.setBounds(50, 220, 300, 40);
-        terminateB.setBounds(50, 280, 300, 40);
-        displayPartTimeVB.setBounds(360, 160, 290, 40);
-        displayFullTimeVB.setBounds(360, 220, 290, 40);
-        hireFullTimeStaffB.setBounds(360, 100, 290, 40);
-        hirePartTimeStaffB.setBounds(360, 40, 290, 40);
+        btnAddPartTimeVacancy.setBounds(50, 40, 300, 40);
+        btnAddFullTimeVacancy.setBounds(50, 100, 300, 40);
+        btnDisplayPartTime.setBounds(50, 160, 600, 40);
+        btnDisplayFullTime.setBounds(50, 220, 600, 40);
+        btnTerminateFunction.setBounds(50, 280, 300, 40);
+        // displayPartTimeVB.setBounds(360, 160, 290, 40);
+        // displayFullTimeVB.setBounds(360, 220, 290, 40);
+        btnHireFullTimeStaff.setBounds(360, 100, 290, 40);
+        btnHirePartTimeStaff.setBounds(360, 40, 290, 40);
         exit.setBounds(360, 280, 290, 40);
         // adding action listener
-        addVacFullTimeB.addActionListener(this);
-        addVacPartTimeB.addActionListener(this);
-        displayFullB.addActionListener(this);
-        displayPartB.addActionListener(this);
-        terminateB.addActionListener(this);
-        displayPartTimeVB.addActionListener(this);
-        displayFullTimeVB.addActionListener(this);
-        hireFullTimeStaffB.addActionListener(this);
-        hirePartTimeStaffB.addActionListener(this);
+        btnAddFullTimeVacancy.addActionListener(this);
+        btnAddPartTimeVacancy.addActionListener(this);
+        btnDisplayFullTime.addActionListener(this);
+        btnDisplayPartTime.addActionListener(this);
+        btnTerminateFunction.addActionListener(this);
+        // displayPartTimeVB.addActionListener(this);
+        // displayFullTimeVB.addActionListener(this);
+        btnHireFullTimeStaff.addActionListener(this);
+        btnHirePartTimeStaff.addActionListener(this);
         exit.addActionListener(this);
 
         // adding to the frame1
-        frame1.add(addVacFullTimeB);
-        frame1.add(addVacPartTimeB);
-        frame1.add(displayPartB);
-        frame1.add(displayFullB);
-        frame1.add(terminateB);
-        frame1.add(displayPartTimeVB);
-        frame1.add(displayFullTimeVB);
+        frame1.add(btnAddFullTimeVacancy);
+        frame1.add(btnAddPartTimeVacancy);
+        frame1.add(btnDisplayPartTime);
+        frame1.add(btnDisplayFullTime);
+        frame1.add(btnTerminateFunction);
+        // frame1.add(displayPartTimeVB);
+        // frame1.add(displayFullTimeVB);
         frame1.add(exit);
-        frame1.add(hireFullTimeStaffB);
-        frame1.add(hirePartTimeStaffB);
+        frame1.add(btnHireFullTimeStaff);
+        frame1.add(btnHirePartTimeStaff);
         // frame2
         frame2 = new JFrame("Hire Part Time staff hire");
         backB = new JButton("Go Back");
         backB2 = new JButton("Go Back");
         backB3 = new JButton("Go Back");
         backB4 = new JButton("Go Back");
-        workingHourL = new JLabel("Working Hours :");
-        workingHourC = new JComboBox<Integer>();
-        wagesPerHourL = new JLabel("Wages per hour:");
-        DesignationL = new JLabel("Designation:");
+        lblworkingHourPartTime = new JLabel("Working Hours :");
+        comboWorkingHourPartTime = new JComboBox<Integer>();
+        lblWagesPerHour = new JLabel("Wages per hour:");
+        lblDesignationPartTime = new JLabel("Designation:");
         DesignationTF = new JTextField(25);
         wagesPerHourTF = new JTextField();
-        VacancyNumL = new JLabel("Vacancy No:");
+        lblVacanyNoPartTime = new JLabel("Vacancy No:");
         VacancyNumPT = new JTextField();
-        shiftL = new JLabel("Shift:");
-        shiftCB = new JComboBox<String>();
-        savePT = new JButton("Save");
+        lblShift = new JLabel("Shift:");
+        comboShift = new JComboBox<String>();
+        btnSavePartTimeVacancy = new JButton("Save");
         clear1 = new JButton("Clear");
-        jobTypeL = new JLabel("Job Type:");
+        lblJobTypePartTime = new JLabel("Job Type:");
         jobTypeTF = new JTextField();
 
         clear1.addActionListener(this);
-        savePT.addActionListener(this);
+        btnSavePartTimeVacancy.addActionListener(this);
         backB.addActionListener(this);
         backB2.addActionListener(this);
         backB3.addActionListener(this);
@@ -138,24 +142,24 @@ class INGNepal implements ActionListener {
         backB2.setBounds(50, 300, 100, 40);
         backB3.setBounds(50, 300, 100, 40);
         backB4.setBounds(50, 300, 100, 40);
-        workingHourL.setBounds(50, 100, 300, 40);
-        workingHourC.setBounds(150, 105, 80, 25);
-        wagesPerHourL.setBounds(250, 100, 300, 40);
+        lblworkingHourPartTime.setBounds(50, 100, 300, 40);
+        comboWorkingHourPartTime.setBounds(150, 105, 80, 25);
+        lblWagesPerHour.setBounds(250, 100, 300, 40);
         wagesPerHourTF.setBounds(350, 105, 100, 25);
-        DesignationL.setBounds(250, 150, 300, 40);
+        lblDesignationPartTime.setBounds(250, 150, 300, 40);
         DesignationTF.setBounds(350, 160, 100, 25);
-        jobTypeL.setBounds(250, 205, 300, 40);
+        lblJobTypePartTime.setBounds(250, 205, 300, 40);
         jobTypeTF.setBounds(350, 210, 100, 25);
-        VacancyNumL.setBounds(50, 150, 300, 40);
+        lblVacanyNoPartTime.setBounds(50, 150, 300, 40);
         VacancyNumPT.setBounds(150, 155, 20, 30);
         VacancyNumPT.setEditable(false);
-        shiftL.setBounds(50, 200, 300, 40);
-        shiftCB.setBounds(150, 205, 80, 30);
-        shiftCB.addItem("Morning");
-        shiftCB.addItem("Day");
-        shiftCB.addItem("Night");
+        lblShift.setBounds(50, 200, 300, 40);
+        comboShift.setBounds(150, 205, 80, 30);
+        comboShift.addItem("Morning");
+        comboShift.addItem("Day");
+        comboShift.addItem("Night");
         clear1.setBounds(200, 300, 80, 40);
-        savePT.setBounds(330, 300, 130, 40);
+        btnSavePartTimeVacancy.setBounds(330, 300, 130, 40);
         frame2.setLayout(null);
         frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame2.setBounds(120, 60, 500, 450);
@@ -176,61 +180,50 @@ class INGNepal implements ActionListener {
             }
         });
         for (int i = 4; i < 8; i++) {
-            workingHourC.addItem(i);
+            comboWorkingHourPartTime.addItem(i);
         }
 
         // adding elements to the frame2
         frame2.add(title);
         frame2.getContentPane().setBackground(c);
         frame2.add(backB);
-        frame2.add(workingHourL);
-        frame2.add(workingHourC);
-        frame2.add(wagesPerHourL);
+        frame2.add(lblworkingHourPartTime);
+        frame2.add(comboWorkingHourPartTime);
+        frame2.add(lblWagesPerHour);
         frame2.add(wagesPerHourTF);
-        frame2.add(DesignationL);
+        frame2.add(lblDesignationPartTime);
         frame2.add(DesignationTF);
-        frame2.add(VacancyNumL);
-        frame2.add(shiftL);
-        frame2.add(shiftCB);
-        frame2.add(savePT);
+        frame2.add(lblVacanyNoPartTime);
+        frame2.add(lblShift);
+        frame2.add(comboShift);
+        frame2.add(btnSavePartTimeVacancy);
         frame2.add(clear1);
         frame2.add(jobTypeTF);
-        frame2.add(jobTypeL);
+        frame2.add(lblJobTypePartTime);
         frame2.add(VacancyNumPT);
         // auto increasing the value of vachancy number
-        VacancyNumPT.setText(String.valueOf(PSH.size() + 1));
 
-        // setting column for j table
-        String column[] = { "Vacancy No.", "Designation", "Wage per hour", "Job Type", "Working Hour", "Shift" };
-        model = new DefaultTableModel();
-        table = new JTable(model);
-        JScrollPane sp = new JScrollPane(table);
-        frame3.add(sp);
-        frame3.setBounds(400, 100, 600, 500);
-        // add columns to model
-        for (int i = 0; i < 6; i++) {
-            model.addColumn(column[i]);
-        }
+      
         // frame4
-        joiningDatePTL = new JLabel("Joining date");
-        staffNamePTL = new JLabel("Staff Name");
-        qualifactionPTL = new JLabel("Qualification");
-        appointeedByPTL = new JLabel("Appointed By");
-        vacancyNoPTL = new JLabel("vacancy number");
-        vacancyNoPTC = new JComboBox<Integer>();
-        savePTH = new JButton("save");
+        lblJoiningDatePartTime = new JLabel("Joining date");
+        lblStaffNamePartTime = new JLabel("Staff Name");
+        lblQualificationPartTimeStaff = new JLabel("Qualification");
+        lblAppointedByPartTime = new JLabel("Appointed By");
+        lblVacancyNumberPartTime = new JLabel("vacancy number");
+        comboVacancyNumberPartTime = new JComboBox<Integer>();
+        btnSavePartTimeStaff = new JButton("save");
         clear2 = new JButton("clear");
 
-        savePTH.setBounds(330, 300, 130, 40);
-        staffNamePTL.setBounds(50, 100, 300, 40);
-        joiningDatePTL.setBounds(260, 100, 300, 40);
-        qualifactionPTL.setBounds(50, 150, 300, 40);
-        appointeedByPTL.setBounds(260, 150, 300, 40);
-        vacancyNoPTC.setBounds(200, 220, 50, 25);
-        vacancyNoPTL.setBounds(50, 210, 300, 40);
+        btnSavePartTimeStaff.setBounds(330, 300, 130, 40);
+        lblStaffNamePartTime.setBounds(50, 100, 300, 40);
+        lblJoiningDatePartTime.setBounds(260, 100, 300, 40);
+        lblQualificationPartTimeStaff.setBounds(50, 150, 300, 40);
+        lblAppointedByPartTime.setBounds(260, 150, 300, 40);
+        comboVacancyNumberPartTime.setBounds(200, 220, 50, 25);
+        lblVacancyNumberPartTime.setBounds(50, 210, 300, 40);
         clear2.setBounds(200, 300, 80, 40);
         clear2.addActionListener(this);
-        savePTH.addActionListener(this);
+        btnSavePartTimeStaff.addActionListener(this);
         joinedDatePTF = new JTextField();
         staffNamePTF = new JTextField();
         qualificationPTF = new JTextField();
@@ -248,56 +241,55 @@ class INGNepal implements ActionListener {
         frame4.getContentPane().setBackground(c);
         frame4.setBounds(120, 60, 500, 450);
         frame4.add(backB2);
-        frame4.add(staffNamePTL);
-        frame4.add(qualifactionPTL);
-        frame4.add(joiningDatePTL);
-        frame4.add(appointeedByPTL);
+        frame4.add(lblStaffNamePartTime);
+        frame4.add(lblQualificationPartTimeStaff);
+        frame4.add(lblJoiningDatePartTime);
+        frame4.add(lblAppointedByPartTime);
         frame4.add(joinedDatePTF);
         frame4.add(staffNamePTF);
         frame4.add(qualificationPTF);
         frame4.add(appointedByPTF);
-        frame4.add(vacancyNoPTC);
-        frame4.add(vacancyNoPTL);
+        frame4.add(comboVacancyNumberPartTime);
+        frame4.add(lblVacancyNumberPartTime);
         frame4.add(clear2);
-        frame4.add(savePTH);
+        frame4.add(btnSavePartTimeStaff);
         // frame 5 for display of part time staffs
-        frame5 = new JFrame("Display part time staffs");
-        frame5.setBounds(400, 100, 600, 500);
-        String column2[] = { "vacancy", "Staff Name", "Joining date", "Qualification", "Appointed By" };
-
+        Object[] column2 = { "vacancy number", "designation", "wages per hour", "Job type", "working hour", "shift",
+                "Staff Name", "joining date", "qualification", "appointed by" };
         // Jtable for vacancy of part time staff
         model2 = new DefaultTableModel();
         table2 = new JTable(model2);
-        JScrollPane sp2 = new JScrollPane(table2);
-        frame5.add(sp2);
-        frame5.setBounds(400, 100, 600, 500);
-        // add columns to model
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             model2.addColumn(column2[i]);
         }
+        frame5 = new JFrame("Display part time staffs");
+        JScrollPane sp2 = new JScrollPane(table2);
+        frame5.add(sp2);
+        frame5.setBounds(100, 100, 900, 500);
+        // add columns to model
         // frame6 for terminating the staff
         frame6 = new JFrame("Terminate a staff");
         frame6.setBounds(120, 30, 700, 250);
         frame6.setLayout(null);
 
-        staffNameTerminate = new JLabel("Staff's name");
-        vacancyNumberTerminate = new JLabel("Vacancy Number");
+        lblStaffNameToTerminate = new JLabel("Staff's name");
+        lblVacancyNumberToTerminate = new JLabel("Vacancy Number");
         showNameB = new JButton("show staff name");
         showNameB.setBounds(50, 140, 180, 40);
         showNameB.addActionListener(this);
-        terminatePTS = new JButton("Terminate the staff");
-        terminatePTS.setBounds(250, 140, 200, 40);
-        terminatePTS.addActionListener(this);
-        staffNameTerminateTF = new JTextField();
-        staffNameTerminateTF.setBounds(380, 85, 100, 30);
+        btnTerminate = new JButton("Terminate the staff");
+        btnTerminate.setBounds(250, 140, 200, 40);
+        btnTerminate.addActionListener(this);
+        lblStaffNameToTerminateTF = new JTextField();
+        lblStaffNameToTerminateTF.setBounds(380, 85, 100, 30);
         terminatingVacncy = new JComboBox<Integer>();
         terminatingVacncy.setBounds(200, 90, 100, 20);
-        staffNameTerminate.setBounds(300, 80, 100, 40);
-        vacancyNumberTerminate.setBounds(100, 80, 180, 40);
-        frame6.add(staffNameTerminate);
-        frame6.add(vacancyNumberTerminate);
-        frame6.add(terminatePTS);
-        frame6.add(staffNameTerminateTF);
+        lblStaffNameToTerminate.setBounds(300, 80, 100, 40);
+        lblVacancyNumberToTerminate.setBounds(100, 80, 180, 40);
+        frame6.add(lblStaffNameToTerminate);
+        frame6.add(lblVacancyNumberToTerminate);
+        frame6.add(btnTerminate);
+        frame6.add(lblStaffNameToTerminateTF);
         frame6.add(showNameB);
         // frame7 for creating vacancy of full time staff
         frame7 = new JFrame("Create vacancy for full time staff");
@@ -306,37 +298,37 @@ class INGNepal implements ActionListener {
         // frame7.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         vacancyNoFTF = new JTextField();
-        vacancyNoFTL = new JLabel("Vacancy Number");
-        workingHourFTL = new JLabel("Working Hour");
-        designationFTL = new JLabel("Designation");
-        jobTypeFTL = new JLabel("Job Type");
-        salaryFTL = new JLabel("Salary");
-        workingHourFTC = new JComboBox<Integer>();
+        lblVacancyFulTimeStaff = new JLabel("Vacancy Number");
+        lblworkingHourFullTime = new JLabel("Working Hour");
+        lblDesignationFullTime = new JLabel("Designation");
+        lbljobTypeFullTime = new JLabel("Job Type");
+        lblSalaryFullTimeStaff = new JLabel("Salary");
+        comboWorkingHourFullTime = new JComboBox<Integer>();
         designationFTF = new JTextField();
         jobTypeFTF = new JTextField();
         salaryFTF = new JTextField();
         clear3 = new JButton("Clear");
-        saveFT = new JButton("Save");
+        btnSaveFullTimeVacancy = new JButton("Save");
 
         for (int i = 8; i < 13; i++) {
-            workingHourFTC.addItem(i);
+            comboWorkingHourFullTime.addItem(i);
         }
 
-        vacancyNoFTL.setBounds(50, 150, 300, 40);
-        workingHourFTL.setBounds(50, 100, 300, 40);
-        designationFTL.setBounds(250, 150, 300, 25);
-        jobTypeFTL.setBounds(250, 205, 300, 40);
-        salaryFTL.setBounds(250, 105, 300, 40);
+        lblVacancyFulTimeStaff.setBounds(50, 150, 300, 40);
+        lblworkingHourFullTime.setBounds(50, 100, 300, 40);
+        lblDesignationFullTime.setBounds(250, 150, 300, 25);
+        lbljobTypeFullTime.setBounds(250, 205, 300, 40);
+        lblSalaryFullTimeStaff.setBounds(250, 105, 300, 40);
         vacancyNoFTF.setBounds(150, 160, 30, 20);
         vacancyNoFTF.setEditable(false);
-        workingHourFTC.setBounds(150, 110, 50, 25);
+        comboWorkingHourFullTime.setBounds(150, 110, 50, 25);
         designationFTF.setBounds(350, 150, 100, 25);
         jobTypeFTF.setBounds(350, 215, 100, 25);
         salaryFTF.setBounds(350, 115, 100, 25);
         clear3.setBounds(200, 300, 80, 40);
-        saveFT.setBounds(330, 300, 130, 40);
+        btnSaveFullTimeVacancy.setBounds(330, 300, 130, 40);
         clear3.addActionListener(this);
-        saveFT.addActionListener(this);
+        btnSaveFullTimeVacancy.addActionListener(this);
         salaryFTF.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent ke) {
 
@@ -350,15 +342,15 @@ class INGNepal implements ActionListener {
                 }
             }
         });
-        vacancyNoFTF.setText(String.valueOf(PSH.size() + FSH.size() + 1));
+        vacancyNoFTF.setText(String.valueOf(staffList.size() + 1));
 
-        frame7.add(vacancyNoFTL);
-        frame7.add(workingHourFTL);
-        frame7.add(designationFTL);
-        frame7.add(jobTypeFTL);
-        frame7.add(salaryFTL);
+        frame7.add(lblVacancyFulTimeStaff);
+        frame7.add(lblworkingHourFullTime);
+        frame7.add(lblDesignationFullTime);
+        frame7.add(lbljobTypeFullTime);
+        frame7.add(lblSalaryFullTimeStaff);
         frame7.add(vacancyNoFTF);
-        frame7.add(workingHourFTC);
+        frame7.add(comboWorkingHourFullTime);
         frame7.add(designationFTF);
         frame7.add(jobTypeFTF);
         frame7.add(salaryFTF);
@@ -366,90 +358,76 @@ class INGNepal implements ActionListener {
         frame7.add(title3);
         frame7.add(backB3);
         frame7.add(clear3);
-        frame7.add(saveFT);
+        frame7.add(btnSaveFullTimeVacancy);
         frame7.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        String column3[] = { "vacancy", "designation", "salary", "job type", "working Hour" };
+ 
+        lblStaffNameFullTimeStaff = new JLabel("Staff Nmae");
+        lblJoiningDateFullTimeStaff = new JLabel("Joining Date");
+        lblQualificationFullTimeStaff = new JLabel("Qualification");
+        lblAppointedByFullTimeStaff = new JLabel("Appointed By");
+        lblVacancyNoFullTimeStaff2 = new JLabel("Choose Vacancy Number");
 
-        // Jtable for vacancy of part time staff
-        frame8 = new JFrame("display full time staff vacancy");
-        model3 = new DefaultTableModel();
-        for (int i = 0; i < 5; i++) {
-            model3.addColumn(column3[i]);
-        }
-
-        table3 = new JTable(model3);
-        JScrollPane sp3 = new JScrollPane(table3);
-        frame8.add(sp3);
-        frame8.setBounds(400, 100, 600, 500);
-        // frame8.setLayout(null);
-        // frame9 for hiring full time staff
-        staffNameFTL = new JLabel("Staff Nmae");
-        joiningDateFTL = new JLabel("Joining Date");
-        qualificationFTL = new JLabel("Qualification");
-        appointedByFTL = new JLabel("Appointed By");
-        vacancyNoFTH = new JLabel("Choose Vacancy Number");
-
-
-        saveFTH = new JButton("Save");
+        btnSaveFullTimeStaff = new JButton("Save");
         clear4 = new JButton("clear");
-        saveFTH.setBounds(330, 300, 130, 40);
+        btnSaveFullTimeStaff.setBounds(330, 300, 130, 40);
         clear4.setBounds(200, 300, 80, 40);
         staffNameFTF = new JTextField();
         joiningDateFTF = new JTextField();
         qualificationFTF = new JTextField();
         appointedByFTF = new JTextField();
-        vacancyNoFTC = new JComboBox<Integer>();
-        vacancyNoFTC.setBounds(250,220,50,25);
-        qualificationFTL = new JLabel("qualification");
-        for (int i =0; i<FSH.size();i++){
+        comboVacancyNumberFullTime = new JComboBox<Integer>();
+        comboVacancyNumberFullTime.setBounds(250, 220, 50, 25);
+        lblQualificationFullTimeStaff = new JLabel("qualification");
 
-        vacancyNoFTC.addItem(i+1);
-        }
-
-        staffNameFTL.setBounds(50, 100, 300, 40);
-        joiningDateFTL.setBounds(260, 100, 300, 40);
-        qualificationFTL.setBounds(50, 150, 300, 40);
-        appointedByFTL.setBounds(260, 150, 300, 40);
-        vacancyNoFTH.setBounds(50,220,150,25);
+        lblStaffNameFullTimeStaff.setBounds(50, 100, 300, 40);
+        lblJoiningDateFullTimeStaff.setBounds(260, 100, 300, 40);
+        lblQualificationFullTimeStaff.setBounds(50, 150, 300, 40);
+        lblAppointedByFullTimeStaff.setBounds(260, 150, 300, 40);
+        lblVacancyNoFullTimeStaff2.setBounds(50, 220, 150, 25);
         joiningDateFTF.setBounds(350, 110, 100, 25);
         staffNameFTF.setBounds(150, 110, 100, 25);
         qualificationFTF.setBounds(150, 160, 100, 25);
         appointedByFTF.setBounds(350, 160, 100, 25);
 
-        saveFTH.addActionListener(this);
+        btnSaveFullTimeStaff.addActionListener(this);
         clear4.addActionListener(this);
 
         frame9 = new JFrame("Hire Full time staff");
         frame9.setBounds(120, 60, 500, 450);
         frame9.add(title4);
-        frame9.add(saveFTH);
+        frame9.add(btnSaveFullTimeStaff);
         frame9.add(backB4);
         frame9.add(clear4);
         frame9.add(staffNameFTF);
         frame9.add(joiningDateFTF);
-        frame9.add(joiningDateFTL);
+        frame9.add(lblJoiningDateFullTimeStaff);
 
-        frame9.add(staffNameFTL);
+        frame9.add(lblStaffNameFullTimeStaff);
         frame9.add(qualificationFTF);
-        frame9.add(qualificationFTL);
-     frame9.add(appointedByFTF);
-        frame9.add(appointedByFTL);
-        frame9.add(vacancyNoFTC);
+        frame9.add(lblQualificationFullTimeStaff);
+        frame9.add(appointedByFTF);
+        frame9.add(lblAppointedByFullTimeStaff);
+        frame9.add(comboVacancyNumberFullTime);
         frame9.setLayout(null);
-        frame9.add(vacancyNoFTH);
+        frame9.add(lblVacancyNoFullTimeStaff2);
         frame9.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        //frame10 for displaying the full time staff details
+
+        frame6.add(terminatingVacncy);
+        vacancyNoFTF.setText(String.valueOf(staffList.size()+ 1));
+        VacancyNumPT.setText(String.valueOf(partTimeStaffCount() +1));
+        // frame10 for displaying the full time staff details
         frame10 = new JFrame("Display full time staff details");
         model4 = new DefaultTableModel();
 
-        for (int i=0;i<5;i++){
-            model4.addColumn(column2[i]);
+        Object[] column1 = { "vacancy number", "designation", "Job Type", "Salary", "working hour", "Staff Name",
+                "joining date", "qualification", "appointed by" };
+        for (int i = 0; i < 9; i++) {
+            model4.addColumn(column1[i]);
         }
-        
+
         table4 = new JTable(model4);
         JScrollPane sp4 = new JScrollPane(table4);
-        frame10.setBounds(400, 100, 600, 500);
+        frame10.setBounds(100, 100, 900, 500);
         frame10.add(sp4);
     }
 
@@ -467,10 +445,10 @@ class INGNepal implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == addVacPartTimeB) {
+        if (e.getSource() == btnAddPartTimeVacancy) {
             frame1.setVisible(false);
             frame2.setVisible(true);
-        } else if (e.getSource() == addVacFullTimeB) {
+        } else if (e.getSource() == btnAddFullTimeVacancy) {
             frame7.setVisible(true);
             frame1.setVisible(false);
         } else if (e.getSource() == backB || e.getSource() == backB2 || e.getSource() == backB3
@@ -479,156 +457,104 @@ class INGNepal implements ActionListener {
         } else if (e.getSource() == clear1 || e.getSource() == clear2 || e.getSource() == clear3
                 || e.getSource() == clear4) {
             clearM();
-        } else if (e.getSource() == savePT) {
+        } else if (e.getSource() == btnSavePartTimeVacancy) {
             if (wagesPerHourTF.getText().trim().isEmpty() || jobTypeTF.getText().trim().isEmpty()
                     || DesignationTF.getText().trim().isEmpty()) {
 
                 JOptionPane.showMessageDialog(null, "Please fill all the information");
             } else {
+
                 int vn = Integer.parseInt(VacancyNumPT.getText());
-                int wh = Integer.parseInt(workingHourC.getSelectedItem().toString());
-                String sh = (String) shiftCB.getSelectedItem();
+                
+
+                
+                int wh = Integer.parseInt(comboWorkingHourPartTime.getSelectedItem().toString());
+                String sh = (String) comboShift.getSelectedItem();
                 int wph = Integer.parseInt(wagesPerHourTF.getText());
-                PSH.add(new PartTimeStaffHire(vn, DesignationTF.getText(), wph, jobTypeTF.getText(), wh, sh));
+                staffList.add(new PartTimeStaffHire(vn, DesignationTF.getText(), wph, jobTypeTF.getText(), wh, sh));
                 JOptionPane.showMessageDialog(null, "Record saved");
                 clearM();
+                vacancyNoFTF.setText(String.valueOf(staffList.size()+ 1));
+                VacancyNumPT.setText(String.valueOf(staffList.size()+ 1));
+                                    }
+               vacancySet();                 
 
-                vacancyNoFTF.setText(String.valueOf(FSH.size()+ PSH.size() + FSH.size() + 1));
-                VacancyNumPT.setText(String.valueOf(PSH.size() + 1));
-                ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
-                ArrayList<String> vacancy = new ArrayList<String>();
-                ArrayList<String> deg = new ArrayList<String>();
-                ArrayList<String> wage = new ArrayList<String>();
-                ArrayList<String> jt = new ArrayList<String>();
-                ArrayList<String> wa = new ArrayList<String>();
-                ArrayList<String> shift = new ArrayList<String>();
-
-                vacancy.add(Integer.toString(PSH.get(PSH.size() - 1).getVacancyNumber()));
-                deg.add(PSH.get(PSH.size() - 1).getDesignation());
-                wage.add(Integer.toString(PSH.get(PSH.size() - 1).getWagesPerHour()));
-                jt.add(PSH.get(PSH.size() - 1).getJobType());
-                wa.add(Integer.toString(PSH.get(PSH.size() - 1).getWorkingHours()));
-                shift.add(PSH.get(PSH.size() - 1).getShifts());
-
-                data.add(vacancy);
-                data.add(deg);
-                data.add(wage);
-                data.add(jt);
-                data.add(wa);
-                data.add(shift);
-
-                model.addRow(data.toArray());
-                vacancyNoPTC.addItem(PSH.size());
-            }
-        } else if (e.getSource() == displayPartTimeVB) {
-            frame3.setVisible(true);
         } else if (e.getSource() == exit) {
             System.exit(0);
-        } else if (e.getSource() == hirePartTimeStaffB) {
-            if (PSH.size() == 0) {
+        } else if (e.getSource() == btnHirePartTimeStaff) {
+            if ( partTimeStaffCount() == 0) {
                 JOptionPane.showMessageDialog(null, "No empty vacancy");
             } else {
                 frame1.setVisible(false);
                 frame4.setVisible(true);
             }
-        } else if (e.getSource() == savePTH) {
+        } else if (e.getSource() == btnSavePartTimeStaff) {
             String date = joinedDatePTF.getText();
             String name = staffNamePTF.getText();
             String qualification = qualificationPTF.getText();
             String appointedBy = appointedByPTF.getText();
             if (date.trim().isEmpty() || name.trim().isEmpty() | qualification.trim().isEmpty()
                     || appointedBy.trim().isEmpty()) {
-
-
-                JOptionPane.showMessageDialog(frame9, "Please fill all the information","Inane error",
-                JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame9, "Erroe", "Please fill all the informatio",
+                        JOptionPane.ERROR_MESSAGE);
             } else {
+                int vn = Integer.parseInt(comboVacancyNumberPartTime.getSelectedItem().toString());
 
-                ArrayList<PartTimeStaffHire> PSHired = new ArrayList<PartTimeStaffHire>();
-                int vn = Integer.parseInt(vacancyNoPTC.getSelectedItem().toString());
+                if(staffList.get(vn-1) instanceof FullTImeStaffHire){
 
-                PartTimeStaffHire staff = (PartTimeStaffHire) PSH.get(vn - 1);
+                    JOptionPane.showMessageDialog(frame9, "Cant hire part time staff in full time satff vacancy", "Inane error", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
+                PartTimeStaffHire staff = (PartTimeStaffHire) staffList.get(vn - 1);
                 if (!staff.getJoined()) {
                     staff.hirePartTimeStaff(staffNamePTF.getText(), joinedDatePTF.getText(), qualificationPTF.getText(),
                             appointedByPTF.getText());
                     JOptionPane.showMessageDialog(null, "Staff has been hired");
-                    terminatingVacncy.addItem(staff.getVacancyNumber());
+                    
                     clearM();
 
-                    for (int i = 0; i < PSH.size(); i++) {
-                        if (PSH.get(i).getJoined() == true) {
-                            PSHired.add(PSH.get(i));
-                        }
-                    }
                 } else {
 
-                    JOptionPane.showMessageDialog(frame4, "Eggs are not supposed to be green.", "Inane error",
+                    JOptionPane.showMessageDialog(frame4, "Staff has already joined in this vacancy", "Inane error",
                             JOptionPane.ERROR_MESSAGE);
                 }
-                ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
-                if (PSHired.size() > 0) {
-                    ArrayList<String> vacancy = new ArrayList<String>();
-                    ArrayList<String> staffName = new ArrayList<String>();
-                    ArrayList<String> joinDate = new ArrayList<String>();
-                    ArrayList<String> qualifaction = new ArrayList<String>();
-                    ArrayList<String> appBy = new ArrayList<String>();
-                    vacancy.add(Integer.toString(staff.getVacancyNumber()));
-                    staffName.add(PSHired.get(PSHired.size() - 1).getStaffName());
-                    joinDate.add(PSHired.get(PSHired.size() - 1).getJoiningDate());
-                    qualifaction.add(PSHired.get(PSHired.size() - 1).getQualification());
-                    appBy.add(PSHired.get(PSHired.size() - 1).getAppointedBy());
 
-                    data.add(vacancy);
-                    data.add(staffName);
-                    data.add(joinDate);
-                    data.add(qualifaction);
-                    data.add(appBy);
-
-                    model2.addRow(data.toArray());
-
-                    // if (PSH.get(PSH.size() - 1).getJoined() == true) {
-                     terminatingVacncy.addItem(PSH.get(PSH.size() - 1).getVacancyNumber());
-                    // }
-                }
-
-            }
-
-            frame6.add(terminatingVacncy);
-        } else if (e.getSource() == displayPartB) {
+              }  }
+        } else if (e.getSource() == btnDisplayPartTime) {
+            add();
             frame5.setVisible(true);
-        } else if (e.getSource() == terminateB) {
-            if (model2.getRowCount() == 0) {
+            //model4.setRowCount(0);
+        } else if (e.getSource() == btnTerminateFunction) {
+            if (partTimeStaffCount() == 0) {
 
                 JOptionPane.showMessageDialog(null, "No staff to terminate");
             } else {
-                staffNameTerminateTF.setEditable(false);
-                staffNameTerminateTF.setText(
-                        PSH.get(Integer.parseInt(terminatingVacncy.getSelectedItem().toString()) - 1).getStaffName());
-
+              //  PartTimeStaffHire staff = (PartTimeStaffHire) staffList
+             //           .get(Integer.parseInt(terminatingVacncy.getSelectedItem().toString()) - 1);
+                lblStaffNameToTerminateTF.setEditable(false);
+              //  lblStaffNameToTerminateTF.setText(staffList.get(1).);
                 frame6.setVisible(true);
             }
         } else if (e.getSource() == showNameB) {
-            staffNameTerminateTF.setText(
-                    PSH.get((Integer.parseInt(terminatingVacncy.getSelectedItem().toString())) - 1).getStaffName());
-        } else if (e.getSource() == terminatePTS) {
-            int vn = Integer.parseInt(vacancyNoPTC.getSelectedItem().toString());
-            PartTimeStaffHire staff = (PartTimeStaffHire) PSH.get(vn - 1);
+            PartTimeStaffHire staff = (PartTimeStaffHire) staffList.get(Integer.parseInt(terminatingVacncy.getSelectedItem().toString())-1);
+            lblStaffNameToTerminateTF.setText(
+                    staff.getStaffName());
+        } else if (e.getSource() == btnTerminate) {
+            int vn = Integer.parseInt(comboVacancyNumberPartTime.getSelectedItem().toString());
+            if(staffList.get(vn-1) instanceof FullTImeStaffHire){
+                JOptionPane.showMessageDialog(frame4, "Error", "Can't terminate a full time staff",
+                            JOptionPane.ERROR_MESSAGE);
+            }
+            else{ 
+            PartTimeStaffHire staff = (PartTimeStaffHire) staffList.get(vn - 1);
             if (staff.getTerminated()) {
 
-                JOptionPane.showMessageDialog(null, "Staff has been terminated");
+                JOptionPane.showMessageDialog(null, "Staff has already been terminated");
             } else {
                 staff.terminateStaff();
-
-            }
             JOptionPane.showMessageDialog(null, "Staff has been terminated");
-            for (int i = 0; i < model2.getRowCount(); i++) {
-                if (((ArrayList<String>) model2.getValueAt(i, 0)).toString().equals(Integer.toString(vn)))
-                    ;
-                {
-                    model2.removeRow(i);
-                } // end of if block
-            } // en
-        } else if (e.getSource() == saveFT) {
+            }
+        } }else if (e.getSource() == btnSaveFullTimeVacancy) {
 
             if (designationFTF.getText().trim().isEmpty() || jobTypeFTF.getText().trim().isEmpty()
                     || salaryFTF.getText().trim().isEmpty()) {
@@ -636,52 +562,29 @@ class INGNepal implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Please fill all the information");
             } else {
                 int vn = Integer.parseInt(vacancyNoFTF.getText());
-                int wh = Integer.parseInt(workingHourFTC.getSelectedItem().toString());
+                int wh = Integer.parseInt(comboWorkingHourFullTime.getSelectedItem().toString());
                 int salary = Integer.parseInt(salaryFTF.getText());
-                FSH.add(new FullTImeStaffHire(vn, designationFTF.getText(), jobTypeFTF.getText(), salary, wh));
+                staffList.add(new FullTImeStaffHire(vn, designationFTF.getText(), jobTypeFTF.getText(), salary, wh));
                 JOptionPane.showMessageDialog(null, "Record saved");
                 clearM();
-                vacancyNoFTF.setText(String.valueOf(PSH.size() + FSH.size() + 1));
-
-                ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
-                ArrayList<String> vacancy = new ArrayList<String>();
-                ArrayList<String> deg = new ArrayList<String>();
-                ArrayList<String> salaryFT = new ArrayList<String>();
-                ArrayList<String> jt = new ArrayList<String>();
-                ArrayList<String> wa = new ArrayList<String>();
-
-                vacancy.add(Integer.toString(FSH.get(FSH.size() - 1).getVacancyNumber()));
-                deg.add(FSH.get(FSH.size() - 1).getDesignation());
-                salaryFT.add(Integer.toString(FSH.get(FSH.size() - 1).getSalary()));
-                jt.add(FSH.get(FSH.size() - 1).getJobType());
-                wa.add(Integer.toString(FSH.get(FSH.size() - 1).getWorkingHours()));
-
-                data.add(vacancy);
-                data.add(deg);
-                data.add(salaryFT);
-                data.add(jt);
-                data.add(wa);
-
-                model3.addRow(data.toArray());
-                // vacancyNoF .addItem(FSH.size());
-                     vacancyNoFTC.addItem(FSH.get(FSH.size() - 1).getVacancyNumber());
+              
+                VacancyNumPT.setText(String.valueOf(partTimeStaffCount() +1));
+                vacancyNoFTF.setText(String.valueOf(staffList.size()+ 1));
+              vacancySet();
             }
 
         }
 
-        else if (e.getSource() == hireFullTimeStaffB) {
-            if (FSH.size() == 0) {
-JOptionPane.showMessageDialog(null, "no vacancy to hire");
-            }
-            else {
+        else if (e.getSource() == btnHireFullTimeStaff) {
+            if (fullTimeStaffCount()== 0) {
+                JOptionPane.showMessageDialog(null, "no vacancy to hire");
+            } else {
                 frame9.setVisible(true);
                 frame1.setVisible(false);
             }
-        } else if (e.getSource() == displayFullTimeVB) {
-            frame8.setVisible(true);
-        }
-        else if(e.getSource() ==saveFTH){
-        
+
+        } else if (e.getSource() == btnSaveFullTimeStaff) {
+
             String date = joiningDateFTF.getText();
             String name = staffNameFTF.getText();
             String qualification = qualificationFTF.getText();
@@ -689,59 +592,35 @@ JOptionPane.showMessageDialog(null, "no vacancy to hire");
             if (date.trim().isEmpty() || name.trim().isEmpty() | qualification.trim().isEmpty()
                     || appointedBy.trim().isEmpty()) {
 
-                JOptionPane.showMessageDialog(frame9, "Please fill all the information","Inane error",
-                JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame9, "Please fill all the information", "Inane error",
+                        JOptionPane.ERROR_MESSAGE);
 
             } else {
 
-                ArrayList<FullTImeStaffHire> FSHired = new ArrayList<FullTImeStaffHire>();
-                int vn = Integer.parseInt(vacancyNoFTC.getSelectedItem().toString());
+                int vn = Integer.parseInt(comboVacancyNumberFullTime.getSelectedItem().toString());
 
-                FullTImeStaffHire staff = (FullTImeStaffHire) FSH.get(vn - 1);
+                if(staffList.get(vn-1) instanceof PartTimeStaffHire){
+
+                    JOptionPane.showMessageDialog(frame9, "Cant hire full time staff in part time satff vacancy", "Inane error", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
+                FullTImeStaffHire staff = (FullTImeStaffHire) staffList.get(vn - 1);
                 if (!staff.getJoined()) {
                     staff.hireFullTimeStaff(staffNameFTF.getText(), joinedDatePTF.getText(), qualificationFTF.getText(),
                             appointedByFTF.getText());
                     JOptionPane.showMessageDialog(null, "Staff has been hired");
                     clearM();
+                } else {
 
-                    for (int i = 0; i < FSH.size(); i++) {
-                        if (FSH.get(i).getJoined() == true) {
-                            FSHired.add(FSH.get(i));
-               } }}
-               else {
-
-                    JOptionPane.showMessageDialog(frame9, "Staff has already been hired in this vacancy", "Inane error",
-                            JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(frame9, "Staff has already been hired in this vacancy", "Inane error", JOptionPane.ERROR_MESSAGE);
                 }
-                ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
-                if (FSHired.size() > 0) {
-                    ArrayList<String> vacancy = new ArrayList<String>();
-                    ArrayList<String> staffName = new ArrayList<String>();
-                    ArrayList<String> joinDate = new ArrayList<String>();
-                    ArrayList<String> qualifaction = new ArrayList<String>();
-                    ArrayList<String> appBy = new ArrayList<String>();
-                    vacancy.add(Integer.toString(staff.getVacancyNumber()));
-                    staffName.add(FSHired.get(FSHired.size() - 1).getStaffName());
-                    joinDate.add(FSHired.get(FSHired.size() - 1).getJoiningDate());
-                    qualifaction.add(FSHired.get(FSHired.size() - 1).getQualification());
-                    appBy.add(FSHired.get(FSHired.size() - 1).getAppointedBy());
-
-                    data.add(vacancy);
-                    data.add(staffName);
-                    data.add(joinDate);
-                    data.add(qualifaction);
-                    data.add(appBy);
-
-                    model4.addRow(data.toArray());
-
-            }
+            }}
+        } else if (e.getSource() == btnDisplayFullTime) {
+            add();
+            frame10.setVisible(true);
         }
+
     }
-    else if (e.getSource()==displayFullB){
-        frame10.setVisible(true);
-    }
-    
-}
 
     public void clearM() {
         joinedDatePTF.setText("");
@@ -756,9 +635,71 @@ JOptionPane.showMessageDialog(null, "no vacancy to hire");
         salaryFTF.setText("");
         staffNameFTF.setText("");
         jobTypeFTF.setText("");
-        qualificationFTF.setText(""); 
+        qualificationFTF.setText("");
         appointedByFTF.setText("");
         joiningDateFTF.setText("");
+    }
+
+    public int partTimeStaffCount() {
+        int partTimeCount = 0;
+        for (int i = 0; i < staffList.size(); i++) {
+            if (staffList.get(i) instanceof PartTimeStaffHire) {
+                partTimeCount += 1;
+            }
+        }
+        return partTimeCount;
+    }
+
+    public int fullTimeStaffCount() {
+        int fullTimeCount = 0;
+        for (int i = 0; i < staffList.size(); i++) {
+            if (staffList.get(i) instanceof FullTImeStaffHire) {
+                fullTimeCount += 1;
+            }
+        }
+        return fullTimeCount;
+    }
+    public void vacancySet(){
+        terminatingVacncy.removeAllItems();
+        for (int i=0; i<staffList.size();i++){
+            if(staffList.get(i) instanceof PartTimeStaffHire){
+
+            terminatingVacncy.addItem(i+1);
+            }
+        }
+                comboVacancyNumberPartTime.addItem(staffList.size());
+            comboVacancyNumberFullTime.addItem(staffList.size());
+    }
+    public void add() {
+            VacancyNumPT.setText(String.valueOf(staffList.size() +1));
+            model2.setRowCount(0);
+            model4.setRowCount(0);
+        for (int i = 0; i < staffList.size(); i++) {
+            if (staffList.get(i) instanceof PartTimeStaffHire) {
+                PartTimeStaffHire staff = (PartTimeStaffHire) staffList.get(i);
+                if (staff.getJoined()) {
+                    model2.addRow(new Object[] { staff.getVacancyNumber(), staff.getDesignation(),
+                            staff.getWagesPerHour(), staff.getJobType(), staff.getWorkingHours(), staff.getShifts(),
+                            staff.getStaffName(), staff.getJoiningDate(), staff.getQualification(),
+                            staff.getAppointedBy() });
+                } else {
+
+                    model2.addRow(new Object[] { staff.getVacancyNumber(), staff.getDesignation(),
+                            staff.getWagesPerHour(), staff.getJobType(), staff.getWorkingHours(), staff.getShifts() });
+                }
+            } else {
+                FullTImeStaffHire staff = (FullTImeStaffHire) staffList.get(i);
+                if (staff.getJoined()) {
+                    model4.addRow(new Object[] { staff.getVacancyNumber(), staff.getDesignation(), staff.getJobType(),
+                            staff.getSalary(), staff.getWorkingHours(), staff.getStaffName(), staff.getJoiningDate(),
+                            staff.getQualification(), staff.getAppointedBy() });
+                } else {
+
+                    model4.addRow(new Object[] { staff.getVacancyNumber(), staff.getDesignation(), staff.getSalary(),
+                            staff.getJobType(), staff.getWorkingHours() });
+                }
+            }
+        }
     }
 
 }
