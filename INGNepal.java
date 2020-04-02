@@ -161,15 +161,19 @@ class INGNepal implements ActionListener {
         wagesPerHourTF.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent ke) {
 
-                if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') {
-                    wagesPerHourTF.setEditable(true);
+                if (ke.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
 
                 } else {
+try{
+
+	Integer.parseInt(String.valueOf(ke.getKeyChar()));
+}
+catch(NumberFormatException e){
                     JOptionPane.showMessageDialog(frame3, "Warning", "wage cant be in string",
                             JOptionPane.WARNING_MESSAGE);
                     wagesPerHourTF.setText("");
                 }
-            }
+            }}
         });
         for (int i = 4; i < 8; i++) {
             comboWorkingHourPartTime.addItem(i);
@@ -321,16 +325,25 @@ class INGNepal implements ActionListener {
         clear3.addActionListener(this);
         btnSaveFullTimeVacancy.addActionListener(this);
         salaryFTF.addKeyListener(new KeyAdapter() {
+	@Override
             public void keyPressed(KeyEvent ke) {
+	   if(ke.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+    {  
+    }
+else{
+	try{
+	Integer.parseInt(String.valueOf(ke.getKeyChar()));
+}
+catch(NumberFormatException e){
 
-                if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') {
-                    salaryFTF.setEditable(true);
+JOptionPane.showMessageDialog(frame7, "Salary can't be string String", "warning",
+		JOptionPane.WARNING_MESSAGE);
+salaryFTF.setText("");
+}
 
-                } else {
-                    JOptionPane.showMessageDialog(frame7, "Salary can't be string String", "warning",
-                            JOptionPane.WARNING_MESSAGE);
-                    salaryFTF.setText("");
-                }
+}
+
+
             }
         });
         vacancyNoFTF.setText(String.valueOf(staffList.size() + 1));

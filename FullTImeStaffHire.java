@@ -43,11 +43,7 @@ class FullTImeStaffHire extends StaffHire {
     }
     //setter methods for required variables
     public void setSalary(int newSalary) {
-        if (joined = false) {
             salary = newSalary;
-        } else {
-            System.out.println("can't change salary");
-        }
 
     }
 
